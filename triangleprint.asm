@@ -154,25 +154,25 @@
 		li t2, 0
 		li s11, 0
 		li s7, 1
-	intro:
+	introd:
 		print_str(prompt)
 		read_n(t0)
-		blez t0, Error_Message
+		blez t0, Errors
 		addi t2, t0, -2
 		addi s1, t2, 0
 		addi s10, t2, 1
 		
-		beq t0, s7, is_one
-		bne t0, s7, is_not_one
+		beq t0, s7, isone
+		bne t0, s7, isnt_one
 		
-		is_one:
+		isone:
 		print_str(star)
 		write_to_buffer(0x2a)
 		print_str(newLine)
 		write_to_buffer(0x0a)
 		j Exit
 		
-		is_not_one:
+		isnt_one:
 		j first_row
 		
 		
@@ -197,18 +197,18 @@
 		
 		#external spacing
 		spacing:
-			bne t3, s1, out_space_ne
-			beq t3, s1 , out_space_e
+			bne t3, s1, space_n
+			beq t3, s1 , out_space
 			
 	
-		out_space_e:
+		out_space:
 			print_str(star)
 			write_to_buffer(0x2a)
 			li t3 ,0
 			addi s1, s1, -1
 			j internal
 	
-		out_space_ne:
+		space_n:
 			print_str(blankspace)
 			write_to_buffer(0x20)
 			addi t3, t3, 1
@@ -235,28 +235,27 @@
 	
 		#vertical control
 		reassess:
-			beq t4,t2, lost_braincells
-			bne t4,t2,nadder
+			beq t4,t2, kissme
+			bne t4,t2, nevers
 	
-		nadder:
+		nevers:
 			print_str(newLine)
 			write_to_buffer(0x0a)
 			addi t4,t4,1
 			j spacing
 		
-		lost_braincells:
+		kissme:
 			print_str(newLine)
 			write_to_buffer(0x0a)
 			j Exit
 		
-		Error_Message:
+		Errors:
 			print_str(invalidMsg)
-			
 			print_str(newLine)
 			write_to_buffer(0x0a)
 			li t0, 0
 			li t2, 0
-			j intro
+			j introd
 	
 
 	#................ your code ends here..........................................................#
