@@ -158,7 +158,7 @@
 		print_str(prompt)
 		read_n(t0)
 		blez t0, Errors
-		addi t2, t0, -2
+		addi t2, t0, -3
 		addi s1, t2, 0
 		addi s10, t2, 1
 		
@@ -166,7 +166,7 @@
 		bne t0, s7, isnt_one
 		
 		isone:
-		print_str(star)
+		print_str(dollar)
 		write_to_buffer(0x2a)
 		print_str(newLine)
 		write_to_buffer(0x0a)
@@ -181,13 +181,11 @@
 		bne s11, s10, first_not_enough
 		
 		first_not_enough:
-		print_str(blankspace)
-		write_to_buffer(0x20)
 		addi s11, s11, 1
 		j first_row
 		
 		first_enough:
-		print_str(star)
+		print_str(dollar)
 		write_to_buffer(0x2a)
 		
 		print_str(newLine)
@@ -202,15 +200,13 @@
 			
 	
 		out_space:
-			print_str(star)
+			print_str(dollar)
 			write_to_buffer(0x2a)
 			li t3 ,0
 			addi s1, s1, -1
 			j internal
 	
 		space_n:
-			print_str(blankspace)
-			write_to_buffer(0x20)
 			addi t3, t3, 1
 			j spacing
 	
@@ -223,12 +219,12 @@
 	
 		in_space_e:
 			li t1, 0
-			print_str(star)
+			print_str(dollar)
 			write_to_buffer(0x2a)
 			j reassess
 	
 		in_space_ne:
-			print_str(blankspace)
+			print_str(Zero)
 			write_to_buffer(0x20)
 			addi t1, t1, 1
 			j internal
@@ -247,7 +243,7 @@
 		kissme:
 			print_str(newLine)
 			write_to_buffer(0x0a)
-			j Exit
+			j Exits
 		
 		Errors:
 			print_str(invalidMsg)
@@ -257,7 +253,27 @@
 			li t2, 0
 			j introd
 	
+Exits:
 
+
+		internals:
+			beq t4 , t1, in_space_es
+			bne t4, t1, in_space_nes
+	
+	
+		in_space_es:
+			li t1, 0
+			print_str(dollar)
+			write_to_buffer(0x2a)
+			print_str(dollar)
+			print_str(dollar)
+			j Exit
+	
+		in_space_nes:
+			print_str(dollar)
+			write_to_buffer(0x20)
+			addi t1, t1, 1
+			j internals
 	#................ your code ends here..........................................................#
 	
 	#END YOUR CODE ABOVE THIS COMMENT
