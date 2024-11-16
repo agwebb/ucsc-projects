@@ -51,6 +51,12 @@ li t1, 0
 			j internal
 	
 		out_space_ne:
+#fix the write to buffer here
+			print_str(space)
+
+
+
+
 
 			addi t3, t3, 1
 			j spacing
